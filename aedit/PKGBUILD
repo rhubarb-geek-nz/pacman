@@ -1,0 +1,42 @@
+# Maintainer: rhubarb-geek-nz@users.sourceforge.net
+pkgname=aedit
+pkgver=1.1.82
+pkgrel=1
+epoch=
+pkgdesc="Text Editor based on Intel ISIS-II aedit"
+arch=("$CARCH")
+url="https://sourceforge.net/projects/aedit/"
+license=('GPL3')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+noextract=()
+md5sums=()
+validpgpkeys=()
+source=("https://sourceforge.net/projects/aedit/files/src/aedit-82.tar.gz")
+sha256sums=("c94e7236d1586cb832f03893d9e6ccbfd6bf77fe9cfb2d4447882e5cdd695044")
+
+build() {
+	cd "aedit-82"
+	CFLAGS="-Wall -Werror $CFLAGS" make aedit
+}
+
+check() {
+	test -x "aedit-82/aedit"
+}
+
+package() {
+	mkdir -p "$pkgdir/usr/bin"
+	mkdir -p "$pkgdir/usr/share/man/man1"
+	cp "aedit-82/aedit" "$pkgdir/usr/bin/aedit"
+	gzip < "aedit-82/aedit.1" > "$pkgdir/usr/share/man/man1/aedit.1.gz"
+}

@@ -1,0 +1,40 @@
+# Maintainer: rhubarb-geek-nz@users.sourceforge.net
+pkgname=mpwshell-motif
+pkgver=0.9.5
+pkgrel=1
+epoch=
+pkgdesc="Motivated Power Shell - text editor with embedded scripting engine"
+arch=("$CARCH")
+url="https://github.com/rhubarb-geek-nz/MPWShell"
+license=('MIT')
+groups=()
+depends=('powershell')
+makedepends=('openmotif' 'libxpm')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+noextract=()
+md5sums=()
+validpgpkeys=()
+source=("https://github.com/rhubarb-geek-nz/MPWShell/archive/refs/tags/0.9.5.tar.gz")
+sha256sums=("21f8ab4ac63b8bc613b76b1126668f3e94ec48fc4cc05e45e9cd147bf98fc31b")
+
+build() {
+	cd "MPWShell-0.9.5/Motif"
+	CFLAGS="-Wall -Werror $CFLAGS" make
+}
+
+check() {
+	test -x "MPWShell-0.9.5/Motif/mpwshell"
+}
+
+package() {
+	mkdir -p "$pkgdir/usr/bin"
+	cp "MPWShell-0.9.5/Motif/mpwshell" "$pkgdir/usr/bin/mpwshell"
+}
