@@ -1,0 +1,43 @@
+# Maintainer: rhubarb-geek-nz@users.sourceforge.net
+pkgname=mpwshell-qt
+pkgver=0.9.8
+pkgrel=1
+epoch=
+pkgdesc="Monster Power Shell - text editor with embedded scripting engine"
+arch=("$CARCH")
+url="https://github.com/rhubarb-geek-nz/MPWShell"
+license=('MIT')
+groups=()
+depends=('powershell')
+makedepends=('qt6-base')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+noextract=()
+md5sums=()
+validpgpkeys=()
+source=("https://github.com/rhubarb-geek-nz/MPWShell/archive/refs/tags/0.9.8.tar.gz")
+sha256sums=("21af352eb8227581821d3a3d410c451a627b3dd9a90ffcefc929adcf53793105")
+
+build() {
+	cd "MPWShell-0.9.8/Qt"
+	qmake6 VERSION=0.9.8
+	CFLAGS="-Wall -Werror $CFLAGS" make
+}
+
+check() {
+	test -x "MPWShell-0.9.8/Qt/mpwshell"
+}
+
+package() {
+	mkdir -p "$pkgdir/usr/bin" "$pkgdir/usr/share/icons/locolor/32x32/apps" "$pkgdir/usr/share/applications"
+	cp "MPWShell-0.9.8/Qt/mpwshell" "$pkgdir/usr/bin/mpwshell"
+	cp "MPWShell-0.9.8/Qt/mpwshell.png" "$pkgdir/usr/share/icons/locolor/32x32/apps/mpwshell.png"
+	cp "MPWShell-0.9.8/Qt/mpwshell.desktop" "$pkgdir/usr/share/applications/nz.geek.rhubarb.mpwshell.desktop"
+}
